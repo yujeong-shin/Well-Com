@@ -4,10 +4,7 @@ import com.wellcom.domain.Item.Item;
 import com.wellcom.domain.Item.ItemStatus;
 import com.wellcom.domain.Member.Member;
 import com.wellcom.domain.Record.Record;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -66,5 +63,8 @@ public class SharingRoom {
     }
     public void deleteSharingRoom() {
         this.delYn = "Y";
+    }
+    public void updateCurPeople(int count){
+        this.curPeople = count;
     }
 }

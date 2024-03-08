@@ -2,7 +2,9 @@ package com.wellcom.global.socket;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wellcom.domain.SharingRoom.Dto.SharingRoomResDto;
 import com.wellcom.domain.SharingRoom.Service.SharingRoomService;
+import com.wellcom.domain.SharingRoom.SharingRoom;
 import com.wellcom.global.common.CommonResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,11 +18,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
+@Transactional
 public class ChatController {
     private final SharingRoomService sharingRoomService;
     private final SimpMessageSendingOperations sendingOperations;
@@ -47,7 +51,11 @@ public class ChatController {
         countMap.put(roomId, ++count);
         System.out.println("현재 인원 수 : " + countMap.get(roomId));
 
-        int limitPeople = sharingRoomService.findByIdForGame(roomId).getCntPeople();
+        // 현재 인원 DB 반영
+        SharingRoom sharingRoom = sharingRoomService.findByIdForGame(roomId);
+        sharingRoom.updateCurPeople(countMap.get(roomId));
+
+        int limitPeople = sharingRoom.getCntPeople();
         if(countMap.get(roomId) == limitPeople){
             System.out.println("전원 입장 완료");
             printAllEnter(roomId);
@@ -134,6 +142,10 @@ public class ChatController {
         int count = countMap.get(roomId);
         countMap.put(roomId, --count);
         System.out.println("현재 인원 수 : " + countMap.get(roomId));
+
+        // 현재 인원 DB 반영
+        SharingRoom sharingRoom = sharingRoomService.findByIdForGame(roomId);
+        sharingRoom.updateCurPeople(countMap.get(roomId));
     }
 
     @GetMapping("/room/{id}/cntPeople")

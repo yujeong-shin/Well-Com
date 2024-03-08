@@ -61,6 +61,16 @@
   </v-main>
 </template>
 
+<style scoped>
+.wrap {
+  background-image: url("../assets/background.jpg");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+}
+</style>
+
 <script>
 import axios from "axios";
 
