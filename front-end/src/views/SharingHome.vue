@@ -72,12 +72,6 @@
                 @click="deleteSharingRoom(room.id)"
                 >삭제하기</v-btn
               >
-              <!-- <v-btn
-                v-else-if="room.itemStatus !== 'DONE'"
-                color="primary"
-                @click="goToNaNumRoom(room.id)"
-                >선착순 나눔받기</v-btn
-              > -->
               <v-btn
                 v-else-if="
                   room.itemStatus !== 'DONE' && room.curPeople < room.cntPeople
@@ -148,9 +142,32 @@ export default {
         alert("로그인이 필요한 서비스입니다.");
       }
     },
+    // async goToNaNumRoom(roomId) {
+    //   if (this.isAuthenticated()) {
+    //     this.$router.push(`/user/nanumGame/${roomId}`);
+    //   } else {
+    //     alert("로그인이 필요한 서비스입니다.");
+    //   }
+    // },
     async goToNaNumRoom(roomId) {
       if (this.isAuthenticated()) {
-        this.$router.push(`/user/nanumGame/${roomId}`);
+        try {
+          const response = await axios.get(
+            `${process.env.VUE_APP_API_BASE_URL}/room/${roomId}/curPeople`
+          );
+          console.log(response);
+
+          // // 참가 원하는 방 찾기
+          // const room = this.sharingRooms.find((room) => room.id === roomId);
+          // console.log(room.cntPeople);
+          // if (room && response.data === room.cntPeople) {
+          //   alert("제한 인원이 꽉 찼습니다");
+          // } else {
+          this.$router.push(`/user/nanumGame/${roomId}`);
+          // }
+        } catch (error) {
+          console.error(error);
+        }
       } else {
         alert("로그인이 필요한 서비스입니다.");
       }

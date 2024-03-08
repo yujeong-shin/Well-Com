@@ -148,9 +148,11 @@ public class ChatController {
         sharingRoom.updateCurPeople(countMap.get(roomId));
     }
 
-    @GetMapping("/room/{id}/cntPeople")
-    public ResponseEntity<CommonResponse> getCount(@PathVariable Long roomId) {
-        int count = countMap.get(roomId);
-        return new ResponseEntity<>(new CommonResponse(HttpStatus.OK, "successfully get cntPeople", count), HttpStatus.OK);
+    @GetMapping("/room/{id}/curPeople")
+    public int getCount(@PathVariable Long roomId) {
+        System.out.println(roomId);
+        SharingRoom sharingRoom = sharingRoomService.findByIdForGame(roomId);
+        System.out.println(sharingRoom.getCurPeople());
+        return sharingRoom.getCurPeople();
     }
 }
