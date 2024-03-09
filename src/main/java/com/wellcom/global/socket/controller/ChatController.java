@@ -152,9 +152,9 @@ public class ChatController {
     }
 
     @GetMapping("/room/{id}/curPeople")
-    public int getCount(@PathVariable Long roomId) {
-        System.out.println(roomId);
-        SharingRoom sharingRoom = sharingRoomService.findByIdForGame(roomId);
+    public int getCount(@PathVariable Long id) {
+        System.out.println(id);
+        SharingRoom sharingRoom = sharingRoomService.findByIdForGame(id);
         System.out.println(sharingRoom.getCurPeople());
         return sharingRoom.getCurPeople();
     }
