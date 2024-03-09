@@ -75,6 +75,7 @@ export default {
   },
   created() {
     this.connect();
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
   },
   beforeRouteLeave(to, from, next) {
     // 라우트를 벗어나기 전에 웹소켓 연결 해제
@@ -200,6 +201,19 @@ export default {
         console.log("연결되지 않았거나 빈 메시지입니다.");
       }
     },
+    handleBeforeUnload(event) {
+      this.disconnectFromServer();
+      event.returnValue = '';
+    },
+    disconnectFromServer() {
+      if (this.stompClient && this.stompClient.connected) {
+        this.stompClient.disconnect();
+        console.log("소켓 연결이 해제되었습니다.");
+      }
+    }
   },
+  beforeUnmount() {
+    window.removeEventListener('beforeunload', this.handleBeforeUnload);
+  }
 };
 </script>
