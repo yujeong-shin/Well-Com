@@ -46,22 +46,26 @@ public class ChatController {
     }
 
     @MessageMapping("connect")
-    public void connect(@Payload RoomNumber roomNumber) {
+    public void connect(@Payload RoomNumber roomNumber, SimpMessageHeaderAccessor accessor) {
         System.out.println("connect() 호출");
         System.out.println("roomNumber.getRoomNumber() = " + roomNumber.getRoomNumber());
         Long roomId = roomNumber.getRoomNumber();
+
+        SharingRoom sharingRoom = sharingRoomService.findByIdForGame(roomId);
+        int limitPeople = sharingRoom.getCntPeople();
         int count = countMap.getOrDefault(roomId, 0);
         countMap.put(roomId, ++count);
         System.out.println("현재 인원 수 : " + countMap.get(roomId));
 
-        // 현재 인원 DB 반영
-        SharingRoom sharingRoom = sharingRoomService.findByIdForGame(roomId);
-        sharingRoom.updateCurPeople(countMap.get(roomId));
-
-        int limitPeople = sharingRoom.getCntPeople();
-        if(countMap.get(roomId) == limitPeople){
-            System.out.println("전원 입장 완료");
-            printAllEnter(roomId);
+        if(count <= limitPeople){
+            // 현재 인원 DB 반영
+            sharingRoom.updateCurPeople(countMap.get(roomId));
+            if(countMap.get(roomId) == limitPeople){
+                System.out.println("전원 입장 완료");
+                printAllEnter(roomId);
+            }
+        } else {
+            isFullRoom(roomNumber.getRoomNumber(), accessor.getSessionId());
         }
     }
     @MessageMapping("/sendMessage")
@@ -135,7 +139,15 @@ public class ChatController {
         }catch(Exception e){
             e.printStackTrace();
         }
-
+    }
+    private void isFullRoom(Long roomId, String sessionId){
+        System.out.println("FullRoom() 호출");
+        String destination = "/queue/error/" + roomId;
+        try{
+            sendingOperations.convertAndSend(destination, sessionId);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     @MessageMapping("disconnect")

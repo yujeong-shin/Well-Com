@@ -119,25 +119,25 @@ export default {
 
           // 메시지 구독
           this.stompClient.subscribe(destination, (message) => {
-          console.log("메시지 수신", message);
+            console.log("메시지 수신", message);
 
-          // 전체 입장 완료 시 5초 카운트다운 시작
-          if (message) {
-            let countdown = 5;
-            const countdownInterval = setInterval(() => {
-              this.messageToReceived = `게임이 ${countdown}초 뒤 시작합니다`;
-              countdown--;
-              if (countdown === 0) {
-                clearInterval(countdownInterval);
-              }
-            }, 1000);
-          }
+            // 전체 입장 완료 시 5초 카운트다운 시작
+            if (message) {
+              let countdown = 5;
+              const countdownInterval = setInterval(() => {
+                this.messageToReceived = `게임이 ${countdown}초 뒤 시작합니다`;
+                countdown--;
+                if (countdown === 0) {
+                  clearInterval(countdownInterval);
+                }
+              }, 1000);
+            }
 
-          // 수신한 메시지를 5초 뒤에 messageToReceived 변수에 할당
-          setTimeout(() => {
-            this.messageToReceived = message.body;
-          }, 6000);
-        });
+            // 수신한 메시지를 5초 뒤에 messageToReceived 변수에 할당
+            setTimeout(() => {
+              this.messageToReceived = message.body;
+            }, 6000);
+          });
 
           const destination2 = `/queue/sharing/${this.id}`;
           this.stompClient.subscribe(destination2, (message) => {
@@ -148,6 +148,16 @@ export default {
               if (key.startsWith(messageIdPrefix)) {
                 this.messageToReceived = bodyData[key];
               }
+            }
+          });
+
+          const destination_error = `/queue/error/${this.id}`;
+          this.stompClient.subscribe(destination_error, (message) => {
+            console.log("메시지 수신", message);
+            const messageIdPrefix = message.headers["message-id"].slice(0, 8);
+            if (message.body === messageIdPrefix) {
+              alert("인원이 꽉찼습니다.");
+              history.back();
             }
           });
         },
