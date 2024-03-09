@@ -111,12 +111,12 @@ public class SharingRoomService {
         return SharingRoomResDto.toDto(sharingRoom);
     }
 
-    public SharingRoomResDto findByIdForGame(Long id){
+    public SharingRoom findByIdForGame(Long id){
         // 어차피 프론트에서 로그인한 사용자만 들어오니까 인증 확인 없이 SharingRoom 반환
         SharingRoom sharingRoom = sharingRoomRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("sharingRoom not found"));
-        return SharingRoomResDto.toDto(sharingRoom);
+//        return SharingRoomResDto.toDto(sharingRoom);
+        return sharingRoom;
     }
-
 
     public SharingRoomResDto update(Long id, SharingRoomReqDto sharingRoomReqDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

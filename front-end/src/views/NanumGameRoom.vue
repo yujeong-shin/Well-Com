@@ -42,8 +42,14 @@
   margin-bottom: 20px;
   color: #333;
 }
+.wrap {
+  background-image: url("../assets/background.jpg");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+}
 </style>
-
 <script>
 import Stomp from "stompjs";
 import SockJS from "sockjs-client";
