@@ -28,7 +28,7 @@ const methods = {
         (err) => {
           localStorage.clear();
           console.log(err);
-          // window.location.href = "/";
+          history.back();
 
           return Promise.reject(err);
         }

@@ -54,8 +54,9 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("@/assets/LandingMain.gif");
-  background-size: cover;
+  background-image: url("https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDduZjY3djBncGh0eHdlZ3FjYnplMjZ4ZnQ0a2wxeHh2bWpua3czbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/uZEzOPf1MMw1jWUtRL/giphy.gif");
+  background-size: auto;
+  background-repeat: repeat;
   background-position: center;
   animation: slide 10s infinite alternate;
 }
