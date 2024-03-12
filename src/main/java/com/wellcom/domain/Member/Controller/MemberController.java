@@ -31,6 +31,9 @@ public class MemberController {
     @GetMapping("/member/reissue")
     public void reIssueToken(){}
 
+    @GetMapping("/ok")
+    public void ok(){}
+
     // 회원 삭제
     @DeleteMapping("/member/{id}/delete")
     public ResponseEntity<CommonResponse> memberDelete(@PathVariable Long id) {
