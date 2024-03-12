@@ -45,5 +45,5 @@ jobs:
 
       - name: eks kubectl apply
         run: |
-          kubectl apply -f ./k8s/wellcom-backend-depl-serve.yml
+          kubectl apply -f ./k8s/wellcom-backend-depl-serv.yml
           kubectl rollout restart deployment wellcom-backend-depl
