@@ -3,7 +3,7 @@ name: deploy order order-backend
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   build-and-deploy:
@@ -36,18 +36,15 @@ jobs:
           - name: build and push docker image to ecr
             env:
                 REGISTRY: 346903264902.dkr.ecr.ap-northeast-2.amazonaws.com
-                REPOSITORY: team1-order
+                REPOSITORY: wellcom
                 IMAGE_TAG: latest
-                DB_HOST: ${{ secrets.DB_HOST }}
-                DB_USERNAME: ${{ secrets.DB_USERNAME }}
-                DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
             run: |
               docker build \
               -t $REGISTRY/$REPOSITORY:$IMAGE_TAG \
-              -f ./order-system/Dockerfile ./order-system
+              -f ./Dockerfile .
               docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
           - name: eks kubectl apply
             run: |
-              kubectl apply -f ./order-system/k8s/order-backend-depl-serve.yml
-              kubectl rollout restart deployment jm-order-backend-depl
+              kubectl apply -f ./k8s/backend-depl-serve.yml
+              kubectl rollout restart deployment wellcom-backend-depl
