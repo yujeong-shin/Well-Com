@@ -6,7 +6,7 @@ metadata:
   name: wellcom-nginx-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /$1 #첫번째 prefix제거
+    # nginx.ingress.kubernetes.io/rewrite-target: /$1 #첫번째 prefix제거
     cert-manager.io/cluster-issuer: letsencrypt-prod
 
 spec:
@@ -18,7 +18,7 @@ spec:
     - host: server.yujeong.shop
       http:
         paths:
-          - path: /wellcom/(.*) #모든 url 요청을 wellcom-backend-service로 라우팅
+          - path: / #모든 url 요청을 wellcom-backend-service로 라우팅
             pathType: Prefix
             backend:
               service:

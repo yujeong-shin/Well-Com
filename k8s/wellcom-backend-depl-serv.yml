@@ -28,6 +28,7 @@ spec:
               cpu: "0.5"
               memory: "250Mi"
           env:
+            # RDS 시크릿
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
@@ -43,6 +44,60 @@ spec:
                 secretKeyRef:
                   name: db-infos
                   key: DB_PASSWORD
+            # JWT 시크릿
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-infos
+                  key: JWT_SECRET_KEY
+            - name: JWT_ACCESS_EXPIRE
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-infos
+                  key: JWT_ACCESS_EXPIRE
+            - name: JWT_REFRESH_EXPIRE
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-infos
+                  key: JWT_REFRESH_EXPIRE
+            # EMAIL 시크릿
+            - name: GOOGLE_EMAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mail-infos
+                  key: GOOGLE_EMAIL_PASSWORD
+            # OAUTH 시크릿
+            - name: OAUTH_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: oauth-infos
+                  key: OAUTH_CLIENT_ID
+            - name: OAUTH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: oauth-infos
+                  key: OAUTH_CLIENT_SECRET
+            - name: OAUTH_REDIRECT_URL
+              valueFrom:
+                secretKeyRef:
+                  name: oauth-infos
+                  key: OAUTH_REDIRECT_URL
+            # S3 IMAGE 시크릿
+            - name: S3_IMAGE_BUCKET
+              valueFrom:
+                secretKeyRef:
+                  name: s3-image-infos
+                  key: S3_IMAGE_BUCKET
+            - name: S3_IMAGE_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: s3-image-infos
+                  key: S3_IMAGE_ACCESS_KEY
+            - name: S3_IMAGE_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: s3-image-infos
+                  key: S3_IMAGE_SECRET_KEY
 ---
 apiVersion: v1
 kind: Service
