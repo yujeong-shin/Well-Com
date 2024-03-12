@@ -34,6 +34,8 @@ kind: Certificate
 metadata:
   name: well-com-tls
   namespace: default
+  annotations:
+  kubectl.kubernetes.io/last-applied-configuration: ""
 spec:
   secretName: well-com-tls
   duration: 2160h # 90-day
