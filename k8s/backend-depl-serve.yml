@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: wellcom
-        image: 346903264902.dkr.ecr.ap-northeast-2.amazonaws.com/team1-order:latest
+        image: 346903264902.dkr.ecr.ap-northeast-2.amazonaws.com/wellcom:latest
         ports:
         - containerPort: 8080
         resources:
