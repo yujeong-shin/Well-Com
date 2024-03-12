@@ -1,0 +1,17 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+cloud:
+  aws:
+    s3:
+      bucket: ${S3_IMAGE_BUCKET}
+    credentials:
+      access-key: ${S3_IMAGE_ACCESS_KEY}
+      secret-key: ${S3_IMAGE_SECRET_KEY}
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false

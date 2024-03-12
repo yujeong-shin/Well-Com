@@ -1,24 +1,25 @@
-# ingress-controller 설치 명령어
+# ingress-controller 설치 명령어-
 # kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.1/deploy/static/provider/aws/deploy.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: wellcom-nginx-ingress
+  name: well-com-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
-    # nginx.ingress.kubernetes.io/rewrite-target: /$1 #첫번째 prefix제거
+    # nginx.ingress.kubernetes.io/rewrite-target: /$1 # 첫번째 prefix제거
     cert-manager.io/cluster-issuer: letsencrypt-prod
-
+  
 spec:
+  # ingressClassName: nginx
   tls:
-    - hosts:
-        - "server.yujeong.shop"
-      secretName: nginx-wellcom-com-tls
+  - hosts:
+    - "server.blisle.shop"
+    secretName: well-com-tls
   rules:
-    - host: server.yujeong.shop
+    - host: server.blisle.shop
       http:
         paths:
-          - path: / #모든 url 요청을 wellcom-backend-service로 라우팅
+          - path: / # 모든 URL요청을 nginx-service로 라우팅
             pathType: Prefix
             backend:
               service:
