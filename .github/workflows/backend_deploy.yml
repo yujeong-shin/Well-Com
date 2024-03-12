@@ -35,9 +35,9 @@ jobs:
 
           - name: build and push docker image to ecr
             env:
-                REGISTRY: 346903264902.dkr.ecr.ap-northeast-2.amazonaws.com
-                REPOSITORY: wellcom
-                IMAGE_TAG: latest
+              REGISTRY: 346903264902.dkr.ecr.ap-northeast-2.amazonaws.com
+              REPOSITORY: wellcom
+              IMAGE_TAG: latest
             run: |
               docker build \
               -t $REGISTRY/$REPOSITORY:$IMAGE_TAG \
