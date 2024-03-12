@@ -161,10 +161,10 @@ export default {
     async goToNaNumRoom(roomId) {
       if (this.isAuthenticated()) {
         try {
-          const response = await axios.get(
-            `${process.env.VUE_APP_API_BASE_URL}/room/${roomId}/curPeople`
-          );
-          console.log(response);
+          // const response = await axios.get(
+          //   `${process.env.VUE_APP_API_BASE_URL}/room/${roomId}/curPeople`
+          // );
+          // console.log(response);
 
           // // 참가 원하는 방 찾기
           // const room = this.sharingRooms.find((room) => room.id === roomId);

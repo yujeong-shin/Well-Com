@@ -10,7 +10,7 @@
         <v-text-field v-model="email" :readonly="loading" :rules="user_email_rule" class="mb-2" clearable label="이메일"
           placeholder="encore@wellbeing.com"></v-text-field>
         <v-text-field v-model="password" :readonly="loading" :rules="user_pw_rule" clearable :type="'password'"
-          class="password-input" label="비밀번호" placeholder="Enter your password"></v-text-field>
+          class="password-input" label="비밀번호" ></v-text-field>
         <v-btn v-on:click.prevent="signInWithGoogle" dark id="google-connect" class="social-button">
           <v-icon left>mdi mdi-google</v-icon>
           <span class="text">구글 계정으로 로그인</span>

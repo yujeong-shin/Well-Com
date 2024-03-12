@@ -82,7 +82,6 @@ export default {
     },
     doLogout() {
       localStorage.clear();
-      alert("로그아웃 되었습니다.")
       window.location.reload();
     }
   },
