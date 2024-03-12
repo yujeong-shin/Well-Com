@@ -90,7 +90,7 @@ spec:
           - name: S3_IMAGE_ACCESS_KEY
             valueFrom:
               secretKeyRef:
-                name: s3-infos
+                name: s3-image-infos
                 key: S3_IMAGE_ACCESS_KEY
           - name: S3_IMAGE_SECRET_KEY
             valueFrom:
