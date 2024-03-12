@@ -82,8 +82,8 @@ public class ReservationService {
 
         if (!isImmediateUsePossible(desk.getDeskNum(), endTime))
             throw new IllegalArgumentException("선택한 시간에 즉시 사용이 불가능합니다.");
-        if (desk.getIsUsable().toString().equals("N"))
-            throw new IllegalArgumentException("이미 사용중인 테이블입니다.");
+        if (reservationCreateReqDto.getMinutes() < 1 || reservationCreateReqDto.getMinutes() > 60)
+            throw new IllegalArgumentException("1분 ~ 60분 사이의 유효한 시간을 입력해주세요.");
 
         Reservation reservation = Reservation.builder()
                 .reservationId(ReservationNumberGenerator.generateReservationNumber())
