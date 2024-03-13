@@ -34,7 +34,6 @@ public class OAuthAttributes {
                 .socialType("GOOGLE")
                 .socialId(oauth2UserInfo.getId())
                 .email(oauth2UserInfo.getEmail())
-                .nickname(oauth2UserInfo.getNickname())
                 .imageUrl(oauth2UserInfo.getImageUrl())
                 .role(Role.GUEST)
                 .build();
